@@ -1,0 +1,36 @@
+
+
+// package olusturma
+npm init 
+
+//babel
+npm install @babel/core @babel/polyfill @babel/preset-env babel-loader 
+--save-dev
+/*
+@babel-cli ye webpack kullanacagımız icin gerek yok 
+babel-loader webpack ile iletisime gececek
+*/
+
+
+//webpack
+npm install webpack-cli webpack --save-dev
+
+
+//Terminali temizleme komutu - cls
+
+
+
+//webpack.config.js dosyasını oluşturuyoruz
+//dosya udemy 202 dersinden alındı.
+
+//package.json 
+script ' e ekliyoruz
+"build":"webpack --watch"
+terminalden run build dediğimizde
+build komutu package ' da çalışacak
+ve oldugu dosyada ariyacak webpacki
+terminale direkt olarak girilen
+webpack kodu locade ariyacagindan
+scripti package a ekledik 
+watch komutuda dosyalardaki degisiklikleri
+surekli olarak takip eder.

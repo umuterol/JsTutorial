@@ -1,0 +1,1 @@
+alert("javascript'e hoşgeldiniz src ile harici eklenmiştir app.js mesajı");

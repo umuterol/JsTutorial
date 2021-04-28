@@ -1,0 +1,35 @@
+[
+
+
+    
+{
+    "name":"umut",
+    "salary":15000,
+    "departmant":"Programlama"
+},
+{
+    "name":"umut can",
+    "salary":15000,
+    "departmant":"Programlama"
+},
+{
+    "name":"umut can erol",
+    "salary":17000,
+    "departmant":"Programlama"
+},
+{
+    "name":"umut erol",
+    "salary":15000,
+    "departmant":"Programlama"
+},
+{
+    "name":"erol",
+    "salary":150000,
+    "departmant":"Programlama"
+}
+
+
+
+
+
+]

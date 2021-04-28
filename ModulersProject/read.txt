@@ -1,0 +1,31 @@
+ //npm install komutu  package'da 
+ devDependencies icinde 
+ yer alan modüllerin hepsini indirir
+
+
+
+
+//bu komutlar package.json da scripts icinde yer alıyor
+
+//webpack calistirma
+npm run build
+
+ //webpack devServer calistirma
+ npm run start 
+
+
+ //fake api url
+ https://github.com/typicode/json-server
+
+
+
+
+//json-server yükleme
+npm install -g json-server
+
+//json-server sunucu baslatma
+ npx json-server --watch fake-api/employee.json
+
+
+ //fetch api klavuz
+ https://jsonplaceholder.typicode.com/guide/

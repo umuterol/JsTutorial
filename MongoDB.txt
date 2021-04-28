@@ -1,0 +1,129 @@
+C:\Program Files\MongoDB\Server\4.4\bin
+
+
+mongo "mongodb+srv://cluster0.lyq7b.mongodb.net/myFirstDatabase" --username umuterol
+
+
+//insert value in collections and if database have not collections , create a new collections
+db.instructors.insertOne(data);
+
+
+
+show collections
+
+
+//collection verileri
+
+db.instructors.find();
+//daha iyi görünüm 
+db.instructors.find().pretty();
+
+
+//Çoklu ekleme
+db.instructors.insertMany([jsonData]);
+
+
+
+//Count
+db.instructors.find().pretty.Count();
+
+
+
+//en bastaki kayit tek veri
+db.instructors.findOne();
+
+
+//column secerek getirme
+db.instructors.find({} , {name:1 , rating:1}).pretty();
+//tüm alanlar gelsin seçili olan gelmesin
+db.instructors.find({} , {name:0}).pretty();
+
+
+
+//kosullu cagirma
+db.instructors.find({status : "A"}).pretty();
+
+//courses array olmasına ragmen icini arar
+db.instructors.find({courses : "kotlin"}).pretty();
+
+//ikili filtreleme
+db.instructors.find({status : "B" , courses : "Python"}).pretty();
+
+//4.5 den buyuk olanlar
+db.instructors.find({rating : {$gt : 4.5} }).pretty();
+
+
+//4.5 e eşit ve buyuk
+db.instructors.find({rating : {$gte : 4.5} }).pretty();
+
+
+//update
+db.instructors.updateOne({name:"umut"} , {$set : {rating : 4.6}} );
+
+//update Many
+db.instructors.updateMany({} , {$set : {rating : 4.6}} );
+
+//tüm umutlar
+db.instructors.updateMany({name:"umut"} , {$set : {rating : 4.6}} )
+
+
+
+
+//Delete
+db.instructors.deleteOne({name : "umut"});
+
+//Delete Many
+db.instructors.deleteMany({name : "umut"});
+
+
+
+
+
+
+//ilk kaydı atlayıp diğerlerini getirecek
+db.instructors.find().skip(1).pretty();
+
+
+//sadece 2 veri getir
+db.instructors.find().limit(2).pretty();
+
+//birlikte kullanım ilkini atla 2 tane getir
+db.instructors.find().skip(1).limit(2).pretty();
+
+//kucukten buyuge siralama
+db.instructors.find({} , {rating : 1}).sort({rating : 1})pretty();
+
+//buyukten kucuge siralama
+db.instructors.find({} , {rating : 1}).sort({rating : -1})pretty();
+
+
+//category e gore getirir ve her categorinin icinde kac tane eleman var listeler sum : 2 yapsaydık elemanları toplaya toplaya gidecekti
+db.products.aggregate([ {$group : {_id : "category" , 
+num_products : {$sum : 1}
+ } } ]) 
+
+
+//kategorilere göre toplam fiyat
+db.products.aggregate([ {$group : {_id : "category" , 
+average_price: {$avg : "$price"}
+ } } ]) 
+
+
+//kategorilere göre max fiyat
+db.products.aggregate([ {$group : {_id : "category" , 
+max_price: {$max : "$price"}
+ } } ]) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

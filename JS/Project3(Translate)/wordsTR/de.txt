@@ -1,0 +1,14 @@
+[
+
+{
+    "tr":"merhaba",
+    "word":"hallo"
+}
+,
+{
+    "tr":"nasılsın",
+    "word":"wie geht es Dir"   
+}
+
+
+]
