@@ -22,8 +22,6 @@ const getAccessToRoute = (req, res, next) => {
             id: decoded.id,
             name: decoded.name
         };
-        
-
         next();
     })
 
