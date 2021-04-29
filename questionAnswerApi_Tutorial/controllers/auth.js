@@ -90,11 +90,25 @@ const logout = asyncErrorWrapper(
 )
 
 
+const imageUpload=asyncErrorWrapper(
+   async (req,res,next)=>{
+    
+        res
+        .status(200)
+        .json({
+            success:true,
+            message:"image upload successful"
+        })
+    }
+)
+
+
 module.exports = {
     register,
     errorTest,
     getUser,
     login,
-    logout
+    logout,
+    imageUpload
 }
 

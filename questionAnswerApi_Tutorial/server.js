@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const routers = require("./routers");
 const connectDatabase = require("./helpers/database/connectDatabase");
 const customErrorHandler = require("./middlewares/errors/customErrorHandler");
+const path=require("path"); //in expresse
+
 
 //Environment Variables
 dotenv.config({
@@ -28,6 +30,9 @@ connectDatabase();
 
 // Error Handler
 app.use(customErrorHandler);
+
+//Static Files
+app.use(express.static(path.join(__dirname,"public")));
 
 
 
