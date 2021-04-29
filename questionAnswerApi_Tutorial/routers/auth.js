@@ -16,7 +16,7 @@ router.get("/error", errorTest);
 router.get("/profile", getAccessToRoute, getUser);
 router.post("/login", login);
 router.get('/logout', getAccessToRoute, logout);
-router.post('/images', [getAccessToRoute, upload.single('avatar')], imageUpload);
+router.post('/upload', [getAccessToRoute, upload.single('avatar')], imageUpload);
 
 
 

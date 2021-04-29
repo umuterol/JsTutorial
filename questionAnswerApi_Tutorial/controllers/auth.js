@@ -79,7 +79,7 @@ const logout = asyncErrorWrapper(
     async (req, res, next) => {
         const { NODE_ENV } = process.env;
 
-      return res
+        return res
             .status(200)
             .clearCookie('access_token')
             .json({
@@ -90,15 +90,24 @@ const logout = asyncErrorWrapper(
 )
 
 
-const imageUpload=asyncErrorWrapper(
-   async (req,res,next)=>{
-    
+const imageUpload = asyncErrorWrapper(
+    async (req, res, next) => {
+
+        const user = await User.findByIdAndUpdate(req.user.id, {
+            profile_image: req.savedProfileImage
+        }, { //return uploded user
+            new: true,
+            runValidators: true
+        }
+        )
+
         res
-        .status(200)
-        .json({
-            success:true,
-            message:"image upload successful"
-        })
+            .status(200)
+            .json({
+                success: true,
+                message: "image upload successful",
+                data: user
+            })
     }
 )
 
