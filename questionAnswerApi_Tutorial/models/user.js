@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
-const jwt=require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const userSchema = new Schema({
 
@@ -12,7 +13,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true, 
+        unique: true,
         match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
             "Please provide a valid email"
         ]
@@ -52,34 +53,55 @@ const userSchema = new Schema({
     blocked: {
         type: Boolean,
         default: false
+    },
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpire: {
+        type: Date
     }
 
 });
 
+userSchema.methods.getResetPasswordTokenFromUser = function () {
+
+    const { RESET_PASSWORD_EXPIRE } = process.env;
+    const randomHexString = crypto.randomBytes(15).toString("hex");
+
+    const resetPasswordToken = crypto
+        .createHash("SHA256")
+        .update(randomHexString)
+        .digest("hex");
+
+    this.resetPasswordToken = resetPasswordToken;
+    this.resetPasswordExpire = Date.now() + parseInt(RESET_PASSWORD_EXPIRE);
+
+}
+
 
 //userSchema Methods
-userSchema.methods.generateJwtFromUser=function(){
+userSchema.methods.generateJwtFromUser = function () {
 
-    const {JWT_SECRET_KEY,JWT_EXPIRE} = process.env;
+    const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
 
-    const payload={
-        id:this._id,
-        name:this.name
+    const payload = {
+        id: this._id,
+        name: this.name
     };
 
-    const token=jwt.sign(payload,JWT_SECRET_KEY,{
-        expiresIn:JWT_EXPIRE
+    const token = jwt.sign(payload, JWT_SECRET_KEY, {
+        expiresIn: JWT_EXPIRE
     });
 
     return token;
-    
+
 };
 
 
 //Pre Hooks
 userSchema.pre("save", function (next) {
     //Parola Değişmemişse
-    if(!this.isModified("password")){
+    if (!this.isModified("password")) {
         next();
     }
 
