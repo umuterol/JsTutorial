@@ -17,7 +17,6 @@ const customErrorHandler = (err, req, res, next) => {
       customError=new CustomError("Please provide a valid id",400);
 
 
-console.log(err.name);
     
 
     res.

@@ -1,7 +1,7 @@
 const express = require("express");
 const { get } = require("mongoose");
 const router = express.Router();
-const { register, errorTest, getUser, login, logout, imageUpload, forgotPassword, resetPassword } = require("../controllers/auth");
+const { register, errorTest, getUser, login, logout, imageUpload, forgotPassword, resetPassword , editDetails} = require("../controllers/auth");
 const { getAccessToRoute } = require("../middlewares/authorization/auth");
 const path = require("path");
 const upload = require("../helpers/libraries/profileImageUpload");
@@ -19,6 +19,7 @@ router.get('/logout', getAccessToRoute, logout);
 router.post('/upload', [getAccessToRoute, upload.single('avatar')], imageUpload);
 router.post("/forgotpassword", forgotPassword);
 router.put("/resetpassword", resetPassword);
+router.put("/edit",getAccessToRoute,editDetails);
 
 
 

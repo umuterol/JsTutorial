@@ -86,7 +86,8 @@ userSchema.methods.generateJwtFromUser = function () {
 
     const payload = {
         id: this._id,
-        name: this.name
+        name: this.name,
+        role:this.role
     };
 
     const token = jwt.sign(payload, JWT_SECRET_KEY, {

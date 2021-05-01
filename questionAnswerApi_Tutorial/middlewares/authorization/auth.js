@@ -20,7 +20,8 @@ const getAccessToRoute = (req, res, next) => {
         }
         req.user = {
             id: decoded.id,
-            name: decoded.name
+            name: decoded.name,
+            role: decoded.role
         };
         next();
     })
@@ -30,6 +31,18 @@ const getAccessToRoute = (req, res, next) => {
 }
 
 
+const getAdminAccess = (req, res, next) => {
+
+    const { role } = req.user;
+
+    if (role !== "admin") {
+        return next(new CustomError("Only admins can access this route", 403));
+    }
+
+    next();
+}
+
 module.exports = {
-    getAccessToRoute
+    getAccessToRoute,
+    getAdminAccess
 }

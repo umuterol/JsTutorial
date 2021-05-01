@@ -1,7 +1,7 @@
 const CustomError = require("../helpers/errors/CustomError");
 const asyncErrorWrapper = require("express-async-handler");
 const User = require("../models/user");
-const user = require("../models/user");
+
 
 const getSingleUser = asyncErrorWrapper(async (req, res, next) => {
 
