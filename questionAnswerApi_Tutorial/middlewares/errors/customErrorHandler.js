@@ -13,9 +13,11 @@ const customErrorHandler = (err, req, res, next) => {
       if(err.code === 11000)
       //Duplicate Key
       customError=new CustomError("Duplicate Key Found : Chech Your Input",400);
+      if(err.name==="CastError")
+      customError=new CustomError("Please provide a valid id",400);
 
 
-
+console.log(err.name);
     
 
     res.
