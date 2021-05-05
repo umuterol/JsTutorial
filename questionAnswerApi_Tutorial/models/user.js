@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const Question = require("./Question");
+
 
 const userSchema = new Schema({
 
@@ -87,7 +89,7 @@ userSchema.methods.generateJwtFromUser = function () {
     const payload = {
         id: this._id,
         name: this.name,
-        role:this.role
+        role: this.role
     };
 
     const token = jwt.sign(payload, JWT_SECRET_KEY, {
@@ -115,8 +117,16 @@ userSchema.pre("save", function (next) {
         });
     });
 
-})
+});
 
+
+userSchema.post("remove", async function () {
+
+    await Question.deleteMany({
+        user: this.id
+    });
+
+});
 
 
 module.exports = mongoose.model("user", userSchema);
