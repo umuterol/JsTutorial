@@ -1,8 +1,12 @@
 const express = require("express");
-const router = express.Router();
 const { getAccessToRoute, getQuestionOwnerAccess } = require("../middlewares/authorization/auth");
-const { askNewQuestion, getAllQuestions, getSingleQuestion, editQuestion, deleteQuestion, likeQuestion , undoLikeQuestion} = require("../controllers/questions");
+const { askNewQuestion, getAllQuestions, getSingleQuestion, editQuestion, deleteQuestion, likeQuestion, undoLikeQuestion } = require("../controllers/questions");
 const { CheckQuestionExist } = require("../middlewares/database/databaseErrorHelpers");
+const answers = require("./answers");
+
+
+
+const router = express.Router();
 
 
 
@@ -14,6 +18,8 @@ router.delete("/:id", [getAccessToRoute, CheckQuestionExist, getQuestionOwnerAcc
 router.get("/:id/like", [getAccessToRoute, CheckQuestionExist], likeQuestion);
 router.get("/:id/undo_like", [getAccessToRoute, CheckQuestionExist], undoLikeQuestion);
 
+
+router.use("/:id/answers", CheckQuestionExist, answers);
 
 
 
