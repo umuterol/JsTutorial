@@ -27,27 +27,14 @@ const askNewQuestion = asyncErrorWrapper(async (req, res, next) => {
 
 const getAllQuestions = asyncErrorWrapper(async (req, res, next) => {
 
-    const questions = await Question.find();
-
-
-    res.status(200)
-        .json({
-            success: true,
-            data: questions
-        });
-
-
-
+    res.status(200).json(res.queryResults);
 });
 
 
 const getSingleQuestion = asyncErrorWrapper(async (req, res, next) => {
 
     res.status(200)
-        .json({
-            success: true,
-            data: req.question
-        })
+        .json(res.queryResults);
 
 });
 
@@ -93,6 +80,7 @@ const likeQuestion = asyncErrorWrapper(async (req, res, next) => {
     }
 
     question.likes.push(userId);
+    question.likeCount=question.likes.length;
     await question.save();
 
     res.status(200)
@@ -114,6 +102,7 @@ const undoLikeQuestion = asyncErrorWrapper(async (req, res, next) => {
 
     const index=question.likes.indexOf(userId);
     question.likes.splice(index,1);
+    question.likeCount=question.likes.length;
     await question.save();
 
     res.status(200)

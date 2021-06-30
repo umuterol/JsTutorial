@@ -3,6 +3,9 @@ const { getAccessToRoute, getQuestionOwnerAccess } = require("../middlewares/aut
 const { askNewQuestion, getAllQuestions, getSingleQuestion, editQuestion, deleteQuestion, likeQuestion, undoLikeQuestion } = require("../controllers/questions");
 const { CheckQuestionExist } = require("../middlewares/database/databaseErrorHelpers");
 const answers = require("./answers");
+const questionQueryMiddleware = require("../middlewares/query/questionQueryMiddleware");
+const Question = require("../models/Question");
+const answerQueryMiddleware = require("../middlewares/query/answerQueryMiddleware");
 
 
 
@@ -11,8 +14,26 @@ const router = express.Router();
 
 
 router.post("/ask", getAccessToRoute, askNewQuestion);
-router.get("/", getAllQuestions);
-router.get("/:id", CheckQuestionExist, getSingleQuestion);
+router.get("/", questionQueryMiddleware(Question,
+    {
+        population:{
+            path:"user",
+            select:"name profile_image"
+        }
+    }
+), getAllQuestions);
+router.get("/:id",answerQueryMiddleware(Question,{
+    population:[
+        {
+            path:"answers",
+            select:"content"
+        },
+        {
+            path:"user",
+            select:"name profile_image"
+        }
+    ]
+}), CheckQuestionExist, getSingleQuestion);
 router.put("/:id", [getAccessToRoute, CheckQuestionExist, getQuestionOwnerAccess], editQuestion);
 router.delete("/:id", [getAccessToRoute, CheckQuestionExist, getQuestionOwnerAccess], deleteQuestion);
 router.get("/:id/like", [getAccessToRoute, CheckQuestionExist], likeQuestion);

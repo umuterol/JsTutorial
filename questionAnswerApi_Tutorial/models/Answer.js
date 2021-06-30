@@ -53,6 +53,8 @@ AnswerSchema.pre('save', async function (next) {
 
         question.answers.push(this._id);
 
+        question.answerCount=question.answers.length;
+
         await question.save();
 
         return next();
@@ -77,6 +79,8 @@ AnswerSchema.post('remove', async function (next) {
         const index=question.answers.indexOf(this._id);
 
         question.answers.splice(index,1);
+
+        question.answerCount=question.answers.length;
 
         await question.save();
 
